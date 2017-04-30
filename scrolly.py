@@ -3,22 +3,23 @@ import mosquitto
 import time
 import subprocess
 
-class Scrolli:
+class Scrolly:
     def __init__(self, host="cubietruck"):
         self.topic_method = {
             "scrolly/write/scroll": self.write_scroll,            
             "scrolly/write": self.write,
-            "scrolly/shutdown": self.shutdown}
+            "scrolly/power": self.power}
         
         scroll.flip(x=True, y=True)
         scroll.clear()
-        scroll.write_string("OK")
+        scroll.write_string("on")
         scroll.show()
         
         self.mos = mosquitto.Mosquitto()
         self.mos.on_message = self.on_message
         self.debug("connecting to " + host)
         self.mos.connect(host)
+        self.mos.publish("scrolly/power", 1)
         self.mos.subscribe("scrolly/#")
 
         self.mos.loop_forever()
@@ -39,9 +40,10 @@ class Scrolli:
             scroll.show()
             time.sleep(wait)
 
-    def shutdown(self, _payload):
-        print("shutting down")
-        subprocess.run(["shutdown", "now"])
+    def power(self, on_off):
+        if on_off == "0":
+            self.write("off")
+            subprocess.call("sudo shutdown now", shell=True)
 
     def write(self, message):
         scroll.clear()
@@ -51,5 +53,5 @@ class Scrolli:
     def debug(self, msg):
         self.mos.publish("scrolly/debug", msg)
 
-sc = Scrolli()
+sc = Scrolly()
 
