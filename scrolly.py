@@ -5,6 +5,7 @@ import time
 import subprocess
 import threading
 
+
 class Scrolly:
     def __init__(self, host="cubietruck"):
         self.topic_method = {
@@ -73,7 +74,6 @@ class Scrolly:
         self.mos.publish("scrolly/debug", msg)
 
 
-        
 if __name__ == "__main__":
     sc = Scrolly()
 
