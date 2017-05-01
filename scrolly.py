@@ -4,9 +4,11 @@ import mosquitto
 import time
 import subprocess
 import threading
-
+import bluedot
 
 class Scrolly:
+    """Scrolly waits for mqtt messages and act then."""
+    
     def __init__(self, host="cubietruck"):
         self.topic_method = {
             "scrolly/write/scroll": self.write_scroll,            
@@ -15,6 +17,7 @@ class Scrolly:
             "scrolly/brightness": self.set_brightness}
         
         scroll.flip(x=True, y=True)
+        scroll.set_brightness(0.2)
         scroll.clear()
         scroll.write_string("on")
         scroll.show()
@@ -27,6 +30,10 @@ class Scrolly:
         self.mos.subscribe("scrolly/#")
 
         self.stop_event = threading.Event()
+
+        # start thread that is waiting for action in bluedot app
+        th = threading.Thread(target=self._shutdown_on_bluedot_press_waiter)
+        th.start()
         
         self.mos.loop_forever()
 
@@ -72,8 +79,13 @@ class Scrolly:
 
     def debug(self, msg):
         self.mos.publish("scrolly/debug", msg)
+        
+    def _shutdown_on_bluedot_press_waiter(self):
+        bd = bluedot.BlueDot()
+        bd.wait_for_press()
+        subprocess.call("sudo shutdown now", shell=True)
 
-
-if __name__ == "__main__":
+        
+if __name__ == "__main__":                    
     sc = Scrolly()
 
