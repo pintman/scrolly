@@ -7,7 +7,26 @@ import threading
 import bluedot
 
 class Scrolly:
-    """Scrolly waits for mqtt messages and act then."""
+    """Scrolly waits for mqtt messages and act then.
+
+    It will act upon messages sent to the topic scrolly/# - the
+    hashtag marks all subtopics.
+
+    Topics
+    ======
+    
+    scrolly/write: The payload will be written to the screen.
+
+    scrolly/write/scroll: The payload will scroll over the
+    screen. Scrolling continues until a new event occurs.
+
+    scrolly/power: If the payload is 0, scrolly will be shutdown. A
+    value of 1 is ignored.
+
+    scrolly/brightness: A value between 0.0 and 1.0 sets the
+    brightness level of the display.
+
+    """
     
     def __init__(self, host="cubietruck"):
         self.topic_method = {
