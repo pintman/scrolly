@@ -54,6 +54,11 @@ class Scrolly:
                               args=(message, wait))
         th.start()
 
+    def write(self, message):
+        scroll.clear()
+        scroll.write_string(message)
+        scroll.show()
+
     def _write_scroll_worker(self, msg, wait_time):
         """Method for the worker thread. It is running until the stop event
         occurs."""
@@ -69,21 +74,21 @@ class Scrolly:
             
     def power(self, on_off):
         if on_off == "0":
-            self.write("off")
-            subprocess.call("sudo shutdown now", shell=True)
+            self._shutdown()
 
-    def write(self, message):
-        scroll.clear()
-        scroll.write_string(message)
-        scroll.show()
+    def _shutdown_on_bluedot_press_waiter(self):
+        bd = bluedot.BlueDot()
+        bd.wait_for_press()
+        self._shutdown()
+
+    def _shutdown(self):
+        self.write("off")
+        subprocess.call("sudo shutdown now", shell=True)
+
 
     def debug(self, msg):
         self.mos.publish("scrolly/debug", msg)
         
-    def _shutdown_on_bluedot_press_waiter(self):
-        bd = bluedot.BlueDot()
-        bd.wait_for_press()
-        subprocess.call("sudo shutdown now", shell=True)
 
         
 if __name__ == "__main__":                    
