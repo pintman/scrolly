@@ -5,6 +5,7 @@ import time
 import subprocess
 import threading
 import bluedot
+import configparser
 
 class Scrolly:
     """Scrolly waits for mqtt messages and act then.
@@ -28,7 +29,7 @@ class Scrolly:
 
     """
     
-    def __init__(self, host="cubietruck"):
+    def __init__(self, host="localhost"):
         self.topic_method = {
             "scrolly/write/scroll": self.write_scroll,            
             "scrolly/write": self.write,
@@ -109,7 +110,12 @@ class Scrolly:
         self.mos.publish("scrolly/debug", msg)
         
 
-        
-if __name__ == "__main__":                    
-    sc = Scrolly()
+def main():
+    config = configparser.ConfigParser()
+    config.read("scrolly.ini")
+    host = config["mqtt"]["host"]
+    Scrolly(host)
 
+
+if __name__ == "__main__":
+    main()
