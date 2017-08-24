@@ -2,8 +2,6 @@ import scrollphathd as scroll
 import sys
 import time
 
-print("buffer shape", scroll.get_buffer_shape())
-
 scroll.set_brightness(0.2)
 output = ' ' + ' '.join(sys.argv[1:]) + (5*' ')
 scroll.clear()
