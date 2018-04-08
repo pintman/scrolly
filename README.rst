@@ -12,7 +12,7 @@ will be listening to.
 
 A simple installation could add a cronjob at reboot:
 
-    @reboot sleep 10 && /usr/bin/python3 /path/to/scrolly/scrolly.py &>> /path/to/home/logdir/scrolly.log
+    @reboot sleep 10 && /usr/bin/python3 /path/to/scrolly/scrolly.py &>> /path/to/logdir/scrolly.log
 
 
 .. _pimoroni: https://shop.pimoroni.com/products/scroll-bot-pi-zero-w-project-kit
