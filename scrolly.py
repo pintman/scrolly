@@ -28,6 +28,8 @@ class Scrolly:
     scrolly/brightness: A value between 0.0 and 1.0 sets the
     brightness level of the display.
 
+    scrolly/status: 'online' or 'offline' depending of the status of scrolly.
+
     """
     
     def __init__(self, host="localhost"):
@@ -42,12 +44,15 @@ class Scrolly:
         scroll.clear()
         scroll.write_string("on")
         scroll.show()
-        
+
+        status_topic = "scrolly/status"
         self.mos = mosquitto.Mosquitto()
+        self.mos.will_set(status_topic, "offline")
         self.mos.on_message = self.on_message
         self.debug("connecting to " + host)
         self.mos.connect(host)
         self.mos.publish("scrolly/power", 1)
+        self.mos.publish(status_topic, "online")
         self.mos.subscribe("scrolly/#")
 
         self.stop_event = threading.Event()
