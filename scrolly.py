@@ -7,8 +7,9 @@ import threading
 import bluedot
 import configparser
 
+
 class Scrolly:
-    """Scrolly waits for mqtt messages and act then.
+    """Scrolly waits for commands recevied as mqtt messages.
 
     It will act upon messages sent to the topic scrolly/# - the
     hashtag marks all subtopics.
@@ -57,7 +58,7 @@ class Scrolly:
         
         self.mos.loop_forever()
 
-    def on_message(self, mosq, userdata, msg):
+    def on_message(self, _msq, _userdata, msg):
         print("msg received", msg.topic, msg.payload)
 
         if msg.topic in self.topic_method:
@@ -104,7 +105,6 @@ class Scrolly:
     def _shutdown(self):
         self.write("off")
         subprocess.call("sudo shutdown now", shell=True)
-
 
     def debug(self, msg):
         self.mos.publish("scrolly/debug", msg)
