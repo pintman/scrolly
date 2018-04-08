@@ -77,7 +77,7 @@ class Scrolly:
 
         self.stop_event.clear()
         th = threading.Thread(target=self._write_scroll_worker,
-                              args=(message, wait))
+                              args=(wait,))
         th.start()
 
     def write(self, message):
@@ -85,7 +85,7 @@ class Scrolly:
         scroll.write_string(message)
         scroll.show()
 
-    def _write_scroll_worker(self, msg, wait_time):
+    def _write_scroll_worker(self, wait_time):
         """Method for the worker thread. It is running until the stop event
         occurs."""
         
