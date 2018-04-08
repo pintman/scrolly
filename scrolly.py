@@ -31,7 +31,7 @@ class Scrolly:
     """
     
     def __init__(self, host="localhost"):
-        self.topic_method = {
+        self.subscribed_topic2method = {
             "scrolly/write_scroll": self.write_scroll,
             "scrolly/write": self.write,
             "scrolly/power": self.power,
@@ -61,9 +61,9 @@ class Scrolly:
     def on_message(self, _msq, _userdata, msg):
         print("msg received", msg.topic, msg.payload)
 
-        if msg.topic in self.topic_method:
+        if msg.topic in self.subscribed_topic2method:
             self.stop_event.set()
-            meth = self.topic_method[msg.topic]
+            meth = self.subscribed_topic2method[msg.topic]
             meth(str(msg.payload, encoding="UTF8"))            
 
     def write_scroll(self, message, wait=0.08):
