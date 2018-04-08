@@ -19,7 +19,7 @@ class Scrolly:
     
     scrolly/write: The payload will be written to the screen.
 
-    scrolly/write/scroll: The payload will scroll over the
+    scrolly/write_scroll: The payload will scroll over the
     screen. Scrolling continues until a new event occurs.
 
     scrolly/power: If the payload is 0, scrolly will be shutdown. A
@@ -32,7 +32,7 @@ class Scrolly:
     
     def __init__(self, host="localhost"):
         self.topic_method = {
-            "scrolly/write/scroll": self.write_scroll,            
+            "scrolly/write_scroll": self.write_scroll,
             "scrolly/write": self.write,
             "scrolly/power": self.power,
             "scrolly/brightness": self.set_brightness}
