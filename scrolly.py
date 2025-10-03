@@ -17,6 +17,7 @@ def show_message(msg):
 
 def main():
     print("Initializing scrollphathd...")
+    ha_api.send_status("starting")
     scroll.flip(x=True, y=True)
 
     while True:
@@ -26,6 +27,7 @@ def main():
 
 def loop():
     print("Getting sensor values...")
+    ha_api.send_status("updating")
 
     show_message("strm")
     time.sleep(2)
@@ -55,3 +57,5 @@ def loop():
 
 if __name__ == "__main__":
     main()
+    ha_api.send_status("stopped")
+    
