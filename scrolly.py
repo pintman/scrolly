@@ -115,7 +115,7 @@ class Scrolly:
 
 def show_message(msg):
     scroll.clear()
-    scroll.write_string(msg)
+    scroll.write_string(msg, brightness=0.5, font=font3x5)
     scroll.show()
 
 def main():
@@ -126,12 +126,10 @@ def main():
 
     print("Initializing scrollphathd...")
     scroll.flip(x=True, y=True)
-    scroll.set_brightness(0.2)
-    scroll.set_font(font5x7)
 
     print("Getting sensor values...")
 
-    show_message("strom")
+    show_message("strm")
     time.sleep(2)
     strom = float(ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH))
     strom_k = round(strom / 1000, 1)
