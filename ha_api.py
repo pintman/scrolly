@@ -17,9 +17,12 @@ HEADERS ={
 if not TOKEN or not ENTITY_ID_STROMVERBRAUCH or not ENTITY_ID_PV:
     raise ValueError("Environment variables missing.")
 
-def get_sensor_value(entity_id):
+def get_sensor_value(entity_id: str) -> str | None:
+    "Fetch sensor value from Home Assistant for given entity_id."
+
     try:
-        response = requests.get(f"{HASS_URL}/api/states/{entity_id}", headers=HEADERS)
+        response = requests.get(f"{HASS_URL}/api/states/{entity_id}", 
+                                headers=HEADERS, timeout=10)
     except requests.exceptions.RequestException as e:
         print("! Request failed:", e)
         return None
@@ -31,7 +34,9 @@ def get_sensor_value(entity_id):
     else:
         print("! Fehler:", response.status_code, response.text)
 
-def send_status(state="display updated", details=""):
+def send_status(state: str="display updated", details: str="") -> None:
+    "Send status update to Home Assistant."
+
     data = {
         "state": state,
         "attributes": {
