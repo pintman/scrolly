@@ -30,7 +30,7 @@ def loop():
     time.sleep(2)
     val = ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH)
     if val is None:
-        print("Fehler beim Abrufen des Stromverbrauchs.")
+        print("! Fehler beim Abrufen des Stromverbrauchs.")
         show_message("Err")
         return    
     strom = float(val)
@@ -42,7 +42,7 @@ def loop():
     time.sleep(2)
     val = ha_api.get_sensor_value(ha_api.ENTITY_ID_PV)
     if val is None:
-        print("Fehler beim Abrufen der PV-Leistung.")
+        print("! Fehler beim Abrufen der PV-Leistung.")
         show_message("Err")
         return
     pv = float(val)
