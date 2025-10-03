@@ -12,7 +12,7 @@ BRIGHTNESS = float(os.getenv("BRIGHTNESS", "0.2"))
 
 def show_message(msg):
     scroll.clear()
-    scroll.write_string(msg, brightness=BRIGHTNESS, font=font3x5)
+    scroll.write_string(msg, x=1, y=1, brightness=BRIGHTNESS, font=font3x5)
     scroll.show()
 
 def main():
