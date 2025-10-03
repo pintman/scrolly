@@ -1,5 +1,5 @@
 import scrollphathd as scroll
-from scrollphathd.fonts import font5x7
+from scrollphathd.fonts import font5x7, font3x5
 import time
 import subprocess
 import threading
@@ -115,7 +115,7 @@ class Scrolly:
 
 def show_message(msg):
     scroll.clear()
-    scroll.write_string(msg, brightness=0.5)
+    scroll.write_string(msg, brightness=0.5, font=font3x5)
     scroll.show()
 
 def main():
@@ -124,6 +124,7 @@ def main():
     #host = config["mqtt"]["host"]
     #Scrolly(host)
 
+    print("Getting sensor values...")
     strom = ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH)
     show_message(f"S:{strom}")
     time.sleep(5)
