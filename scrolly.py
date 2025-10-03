@@ -127,19 +127,21 @@ def main():
 
     print("Getting sensor values...")
 
-    show_message("Strom")
+    show_message("strom")
     time.sleep(2)
     strom = float(ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH))
     strom_k = round(strom / 1000, 1)
     show_message(str(strom_k))
     time.sleep(5)
 
-    show_message("PV")
+    show_message("pv")
     time.sleep(2)
     pv = float(ha_api.get_sensor_value(ha_api.ENTITY_ID_PV))
     pv_k = round(pv / 1000, 1)
     show_message(str(pv_k))
     time.sleep(5)
+
+    scroll.set_clear_on_exit(False)
 
 
 if __name__ == "__main__":
