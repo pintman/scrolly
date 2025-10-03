@@ -36,7 +36,7 @@ def send_status(state="display updated", details=""):
         "state": state,
         "attributes": {
             "friendly_name": "Scrolly",
-            "icon": "mdi:led-strip-variant",
+            "icon": "mdi:robot", # from https://pictogrammers.com/library/mdi/
         }
     }
     if details:
