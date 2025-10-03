@@ -31,7 +31,7 @@ def get_sensor_value(entity_id):
     else:
         print("! Fehler:", response.status_code, response.text)
 
-def send_status(state="display updated"):
+def send_status(state="display updated", details=""):
     data = {
         "state": state,
         "attributes": {
@@ -39,6 +39,9 @@ def send_status(state="display updated"):
             "icon": "mdi:led-strip-variant",
         }
     }
+    if details:
+        data["attributes"]["details"] = details
+
     try:
         response = requests.post(f"{HASS_URL}/api/states/sensor.scrolly", headers=HEADERS, json=data)
     except requests.exceptions.RequestException as e:
@@ -53,5 +56,6 @@ if __name__ == "__main__":
     print("Wert PV:", v)
 
     print("Sende Status...")
-    send_status()
+    send_status("testing", "Dies ist ein Test.")
+    
 
