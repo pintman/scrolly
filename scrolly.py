@@ -17,7 +17,7 @@ def show_message(msg):
 
 def main():
     print("Initializing scrollphathd...")
-    ha_api.send_status("starting")
+    ha_api.send_status("starting", "Initializing scrollphathd LED display with pi Zero.")
     scroll.flip(x=True, y=True)
 
     while True:
