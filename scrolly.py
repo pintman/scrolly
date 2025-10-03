@@ -115,6 +115,7 @@ class Scrolly:
 
 def show_message(msg):
     scroll.clear()
+    scroll.flip(y=True)
     scroll.write_string(msg, brightness=0.5, font=font3x5)
     scroll.show()
 
