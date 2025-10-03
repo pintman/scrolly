@@ -6,7 +6,7 @@ import dotenv
 
 dotenv.load_dotenv()
 
-UPDATE_TIME_SECONDS = int(dotenv.get_key(dotenv.find_dotenv(), "UPDATE_TIME_SECONDS", default="10"))
+UPDATE_TIME_SECONDS = int(dotenv.get_key(dotenv.find_dotenv(), "UPDATE_TIME_SECONDS"))
 
 def show_message(msg):
     scroll.clear()
