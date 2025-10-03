@@ -7,7 +7,7 @@ import dotenv
 dotenv.load_dotenv()
 
 UPDATE_TIME_SECONDS = int(dotenv.get_key(dotenv.find_dotenv(), "UPDATE_TIME_SECONDS"))
-BRIGHTNESS = float(dotenv.get_key(dotenv.find_dotenv(), "BRIGHTNESS", default="0.2"))
+BRIGHTNESS = float(dotenv.get_key(dotenv.find_dotenv(), "BRIGHTNESS", "0.2"))
 
 def show_message(msg):
     scroll.clear()
