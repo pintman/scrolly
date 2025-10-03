@@ -115,8 +115,7 @@ class Scrolly:
 
 def show_message(msg):
     scroll.clear()
-    scroll.flip(x=True, y=True)
-    scroll.write_string(msg, brightness=0.5, font=font3x5)
+    scroll.write_string(msg)
     scroll.show()
 
 def main():
@@ -124,6 +123,11 @@ def main():
     #config.read("scrolly.ini")
     #host = config["mqtt"]["host"]
     #Scrolly(host)
+
+    print("Initializing scrollphathd...")
+    scroll.flip(x=True, y=True)
+    scroll.set_brightness(0.2)
+    scroll.set_font(font5x7)
 
     print("Getting sensor values...")
 
@@ -140,8 +144,6 @@ def main():
     pv_k = round(pv / 1000, 1)
     show_message(str(pv_k))
     time.sleep(5)
-
-    scroll.set_clear_on_exit(False)
 
 
 if __name__ == "__main__":
