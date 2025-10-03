@@ -1,0 +1,15 @@
+[Unit]
+Description=ScrollphatHD Home Assistant Sensoranzeige
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u scrolly.py
+WorkingDirectory=/mnt/dietpi_userdata/proj/scrolly
+StandardOutput=journal
+StandardError=journal
+Restart=always
+User=dietpi
+
+[Install]
+WantedBy=multi-user.target
