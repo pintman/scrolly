@@ -3,11 +3,12 @@ from scrollphathd.fonts import font3x5
 import time
 import ha_api
 import dotenv
+import os
 
 dotenv.load_dotenv()
 
-UPDATE_TIME_SECONDS = int(dotenv.get_key(dotenv.find_dotenv(), "UPDATE_TIME_SECONDS"))
-BRIGHTNESS = float(dotenv.get_key(dotenv.find_dotenv(), "BRIGHTNESS", "0.2"))
+UPDATE_TIME_SECONDS = int(os.get_env("UPDATE_TIME_SECONDS", "10"))
+BRIGHTNESS = float(os.gent_env("BRIGHTNESS", "0.2"))
 
 def show_message(msg):
     scroll.clear()
