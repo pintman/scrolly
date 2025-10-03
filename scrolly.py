@@ -23,11 +23,12 @@ def main():
     while True:
         loop()
         print(f"Warte {UPDATE_TIME_SECONDS} Sekunden...")
+        ha_api.send_status("waiting", f"Next update in {UPDATE_TIME_SECONDS} seconds.")
         time.sleep(UPDATE_TIME_SECONDS)
 
 def loop():
     print("Getting sensor values...")
-    ha_api.send_status("updating")
+    ha_api.send_status("updating", f"Using entities {ha_api.ENTITY_ID_STROMVERBRAUCH} and {ha_api.ENTITY_ID_PV}")
 
     show_message("strm")
     time.sleep(2)
@@ -58,4 +59,3 @@ def loop():
 if __name__ == "__main__":
     main()
     ha_api.send_status("stopped")
-    
