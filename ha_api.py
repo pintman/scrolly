@@ -9,17 +9,17 @@ TOKEN = os.getenv("HASS_TOKEN")
 ENTITY_ID_STROMVERBRAUCH = os.getenv("ENTITY_ID_STROMVERVERBRAUCH")
 ENTITY_ID_PV = os.getenv("ENTITY_ID_PV")
 
+HEADERS ={
+    "Authorization": f"Bearer {TOKEN}",
+    "Content-Type": "application/json",
+}
+
 if not TOKEN or not ENTITY_ID_STROMVERBRAUCH or not ENTITY_ID_PV:
     raise ValueError("Environment variables missing.")
 
 def get_sensor_value(entity_id):
-    headers = {
-        "Authorization": f"Bearer {TOKEN}",
-        "Content-Type": "application/json",
-    }
-
     try:
-        response = requests.get(f"{HASS_URL}/api/states/{entity_id}", headers=headers)
+        response = requests.get(f"{HASS_URL}/api/states/{entity_id}", headers=HEADERS)
     except requests.exceptions.RequestException as e:
         print("! Request failed:", e)
         return None
@@ -31,9 +31,27 @@ def get_sensor_value(entity_id):
     else:
         print("! Fehler:", response.status_code, response.text)
 
+def send_status(state="display updated"):
+    data = {
+        "state": state,
+        "attributes": {
+            "friendly_name": "Scrolly",
+            "icon": "mdi:led-strip-variant",
+        }
+    }
+    try:
+        response = requests.post(f"{HASS_URL}/api/states/sensor.scrolly", headers=HEADERS, json=data)
+    except requests.exceptions.RequestException as e:
+        print("! Request failed:", e)
+        return
+
+
 if __name__ == "__main__":
     v = get_sensor_value(ENTITY_ID_STROMVERBRAUCH)
     print("Wert Stromverbrauch:", v)
     v = get_sensor_value(ENTITY_ID_PV)
     print("Wert PV:", v)
+
+    print("Sende Status...")
+    send_status()
 
