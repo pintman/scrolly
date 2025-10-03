@@ -1,12 +1,10 @@
 import scrollphathd as scroll
 from scrollphathd.fonts import font5x7
-import mosquitto
 import time
 import subprocess
 import threading
-import bluedot
 import configparser
-
+import ha_api
 
 class Scrolly:
     """Scrolly waits for commands recevied as mqtt messages.
@@ -115,11 +113,23 @@ class Scrolly:
         self.mos.publish("scrolly/debug", msg)
         
 
+def show_message(msg):
+    scroll.clear()
+    scroll.write_string(msg, brightness=0.5)
+    scroll.show()
+
 def main():
-    config = configparser.ConfigParser()
-    config.read("scrolly.ini")
-    host = config["mqtt"]["host"]
-    Scrolly(host)
+    #config = configparser.ConfigParser()
+    #config.read("scrolly.ini")
+    #host = config["mqtt"]["host"]
+    #Scrolly(host)
+
+    strom = ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH)
+    show_message(f"S:{strom}")
+    time.sleep(5)
+    pv = ha_api.get_sensor_value(ha_api.ENTITY_ID_PV)
+    show_message(f"PV:{pv}")
+    time.sleep(5)
 
 
 if __name__ == "__main__":
