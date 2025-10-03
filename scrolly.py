@@ -7,10 +7,11 @@ import dotenv
 dotenv.load_dotenv()
 
 UPDATE_TIME_SECONDS = int(dotenv.get_key(dotenv.find_dotenv(), "UPDATE_TIME_SECONDS"))
+BRIGHTNESS = float(dotenv.get_key(dotenv.find_dotenv(), "BRIGHTNESS", default="0.2"))
 
 def show_message(msg):
     scroll.clear()
-    scroll.write_string(msg, brightness=0.5, font=font3x5)
+    scroll.write_string(msg, brightness=BRIGHTNESS, font=font3x5)
     scroll.show()
 
 def main():
