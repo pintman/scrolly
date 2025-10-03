@@ -39,6 +39,7 @@ def loop():
     show_message(str(strom_k))
     time.sleep(5)
 
+    """""
     show_message("pv")
     time.sleep(2)
     val = ha_api.get_sensor_value(ha_api.ENTITY_ID_PV)
@@ -50,7 +51,7 @@ def loop():
     pv_k = round(pv / 1000, 1)
     show_message(str(pv_k))
     time.sleep(5)
-
+    """
 
 if __name__ == "__main__":
     main()
