@@ -2,7 +2,11 @@ import scrollphathd as scroll
 from scrollphathd.fonts import font3x5
 import time
 import ha_api
-      
+import dotenv
+
+dotenv.load_dotenv()
+
+UPDATE_TIME_SECONDS = int(dotenv.get_key(dotenv.find_dotenv(), "UPDATE_TIME_SECONDS", default="10"))
 
 def show_message(msg):
     scroll.clear()
@@ -13,6 +17,12 @@ def main():
     print("Initializing scrollphathd...")
     scroll.flip(x=True, y=True)
 
+    while True:
+        loop()
+        print(f"Warte {UPDATE_TIME_SECONDS} Sekunden...")
+        time.sleep(UPDATE_TIME_SECONDS)
+
+def loop():
     print("Getting sensor values...")
 
     show_message("strm")
