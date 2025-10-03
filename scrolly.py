@@ -126,11 +126,17 @@ def main():
     #Scrolly(host)
 
     print("Getting sensor values...")
+
     strom = ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH)
-    show_message(f"S:{strom}")
+    show_message("Strom")
+    time.sleep(2)
+    show_message(f"{strom}")
     time.sleep(5)
+
     pv = ha_api.get_sensor_value(ha_api.ENTITY_ID_PV)
-    show_message(f"PV:{pv}")
+    show_message("PV")
+    time.sleep(2)
+    show_message(pv)
     time.sleep(5)
 
 
