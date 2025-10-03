@@ -28,14 +28,24 @@ def loop():
 
     show_message("strm")
     time.sleep(2)
-    strom = float(ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH))
+    val = ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH)
+    if val is None:
+        print("Fehler beim Abrufen des Stromverbrauchs.")
+        show_message("Err")
+        return    
+    strom = float(val)
     strom_k = round(strom / 1000, 1)
     show_message(str(strom_k))
     time.sleep(5)
 
     show_message("pv")
     time.sleep(2)
-    pv = float(ha_api.get_sensor_value(ha_api.ENTITY_ID_PV))
+    val = ha_api.get_sensor_value(ha_api.ENTITY_ID_PV)
+    if val is None:
+        print("Fehler beim Abrufen der PV-Leistung.")
+        show_message("Err")
+        return
+    pv = float(val)
     pv_k = round(pv / 1000, 1)
     show_message(str(pv_k))
     time.sleep(5)
