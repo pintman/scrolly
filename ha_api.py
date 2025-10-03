@@ -18,14 +18,18 @@ def get_sensor_value(entity_id):
         "Content-Type": "application/json",
     }
 
-    response = requests.get(f"{HASS_URL}/api/states/{entity_id}", headers=headers)
+    try:
+        response = requests.get(f"{HASS_URL}/api/states/{entity_id}", headers=headers)
+    except requests.exceptions.RequestException as e:
+        print("! Request failed:", e)
+        return None
 
     if response.status_code == 200:
         data = response.json()
         value = data["state"]   # hier ist dein Wert als String
         return value
     else:
-        print("Fehler:", response.status_code, response.text)
+        print("! Fehler:", response.status_code, response.text)
 
 if __name__ == "__main__":
     v = get_sensor_value(ENTITY_ID_STROMVERBRAUCH)
