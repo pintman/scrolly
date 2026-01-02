@@ -33,10 +33,14 @@ def loop():
     show_message("strm")
     time.sleep(2)
     val = ha_api.get_sensor_value(ha_api.ENTITY_ID_STROMVERBRAUCH)
-    if val is None:
-        print("! Fehler beim Abrufen des Stromverbrauchs.")
+    # check if val is a number
+    try:
+        float(val)
+    except (TypeError, ValueError):
+        print("! Abgerufener Wert ist keine Zahl.")
         show_message("Err")
-        return    
+        return
+
     strom = float(val)
     strom_k = round(strom / 1000, 1)
     show_message(str(strom_k))
