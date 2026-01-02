@@ -45,6 +45,8 @@ def loop():
 
     strom = float(val)
     strom_k = round(strom / 1000, 1)
+    print(f"Stromverbrauch: {strom_k} kW")
+
     show_message(str(strom_k))
     time.sleep(5)
 
