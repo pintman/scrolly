@@ -8,7 +8,9 @@ import os
 dotenv.load_dotenv()
 
 UPDATE_TIME_SECONDS = int(os.getenv("UPDATE_TIME_SECONDS", "10"))
+print(f"Update time: {UPDATE_TIME_SECONDS} seconds.")
 BRIGHTNESS = float(os.getenv("BRIGHTNESS", "0.2"))
+print(f"Brightness: {BRIGHTNESS}.")
 
 def show_message(msg):
     scroll.clear()
